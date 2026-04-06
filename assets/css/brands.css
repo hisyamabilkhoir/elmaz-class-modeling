@@ -1,0 +1,176 @@
+/* ============================================
+   BRANDS COLLABORATION — Infinite Marquee 3D
+   ============================================ */
+
+.brands-section {
+  padding: var(--space-section) 0 var(--space-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Marquee Container */
+.brands-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Fade edges */
+.brands-marquee-wrapper::before,
+.brands-marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.brands-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-dark), transparent);
+}
+
+.brands-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-dark), transparent);
+}
+
+/* Marquee Track */
+.brands-marquee-track {
+  display: flex;
+  gap: var(--space-3xl);
+  animation: marqueeScroll 30s linear infinite;
+  width: max-content;
+}
+
+.brands-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Brand Item — 3D Glass Card */
+.brand-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 32px;
+  min-width: 200px;
+  height: 80px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(198,167,105,0.08);
+  border-radius: var(--border-radius-lg);
+  transition: all 0.5s var(--ease-out);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  perspective: 800px;
+}
+
+/* Monogram Initial */
+.brand-monogram {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(198,167,105,0.2);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+  background: rgba(198,167,105,0.05);
+  transition: all 0.5s var(--ease-out);
+}
+
+.brand-item:hover .brand-monogram {
+  background: rgba(198,167,105,0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 15px rgba(198,167,105,0.15);
+}
+
+/* Shimmer sweep on hover */
+.brand-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 200%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(198,167,105,0.08), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.brand-item:hover::before { left: 100%; }
+
+.brand-item:hover {
+  border-color: rgba(198,167,105,0.25);
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(198,167,105,0.03));
+  transform: translateY(-4px) rotateX(3deg);
+  box-shadow:
+    0 15px 30px rgba(0,0,0,0.3),
+    0 0 20px rgba(198,167,105,0.06),
+    inset 0 1px 0 rgba(198,167,105,0.1);
+}
+
+/* Brand Logo Text */
+.brand-logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  font-weight: 400;
+  transition: all 0.5s var(--ease-out);
+  white-space: nowrap;
+}
+
+.brand-item:hover .brand-logo-text {
+  color: var(--color-accent);
+}
+
+/* Brand with image logos */
+.brand-item img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.5);
+  opacity: 0.5;
+  transition: all 0.5s var(--ease-out);
+}
+
+.brand-item:hover img {
+  filter: grayscale(0%) brightness(1);
+  opacity: 0.9;
+}
+
+/* Second row marquee (reverse) */
+.brands-marquee-track.reverse {
+  animation-direction: reverse;
+  margin-top: var(--space-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .brands-marquee-track {
+    gap: var(--space-xl);
+  }
+
+  .brand-item {
+    min-width: 160px;
+    padding: 16px 28px;
+    height: 70px;
+  }
+
+  .brand-logo-text {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+  }
+}

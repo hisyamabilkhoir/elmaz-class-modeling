@@ -1,0 +1,305 @@
+/* ============================================
+   AWARDS PAGE — Editorial Timeline
+   ============================================ */
+
+/* === HERO AWARD (Featured) === */
+.award-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 70vh;
+  margin-bottom: var(--space-3xl);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(198,167,105,0.15);
+}
+
+.award-hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.award-hero-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease-out);
+}
+
+.award-hero:hover .award-hero-image img {
+  transform: scale(1.05);
+}
+
+.award-hero-image-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(107,15,26,0.3), transparent);
+  pointer-events: none;
+}
+
+.award-hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-3xl);
+  background: var(--color-dark-soft);
+  position: relative;
+}
+
+.award-hero-content::before {
+  content: '';
+  position: absolute;
+  top: 40px; right: 40px;
+  width: 80px; height: 80px;
+  border: 1px solid rgba(198,167,105,0.15);
+  border-radius: 50%;
+}
+
+.award-hero-content::after {
+  content: '';
+  position: absolute;
+  top: 55px; right: 55px;
+  width: 50px; height: 50px;
+  border: 1px solid rgba(198,167,105,0.08);
+  border-radius: 50%;
+}
+
+.award-hero-year {
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 8vw, 6rem);
+  color: var(--color-accent);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.award-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, var(--color-secondary), #8B1A2B);
+  border-radius: 30px;
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xl);
+  width: fit-content;
+}
+
+.award-hero-badge::before {
+  content: '★';
+  font-size: 0.7rem;
+}
+
+.award-hero-content h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  line-height: 1.2;
+}
+
+.award-hero-content h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-accent);
+  font-weight: 400;
+  margin-bottom: var(--space-lg);
+}
+
+.award-hero-content p {
+  font-size: var(--text-base);
+  color: var(--color-gray-light);
+  line-height: 1.8;
+  max-width: 450px;
+}
+
+/* === TIMELINE === */
+.timeline {
+  position: relative;
+  padding: var(--space-2xl) 0;
+}
+
+/* Center gold line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-accent) 5%,
+    var(--color-accent) 95%,
+    transparent
+  );
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  margin-bottom: var(--space-3xl);
+  position: relative;
+  align-items: center;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Gold dot on timeline */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px; height: 14px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--color-dark), 0 0 0 5px rgba(198,167,105,0.3), 0 0 20px rgba(198,167,105,0.2);
+}
+
+/* Year marker */
+.timeline-item::after {
+  content: attr(data-year);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -180%);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  letter-spacing: 0.2em;
+  background: var(--color-dark);
+  padding: 4px 14px;
+  border: 1px solid rgba(198,167,105,0.2);
+  border-radius: 20px;
+  z-index: 2;
+}
+
+/* Image side */
+.timeline-image {
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  position: relative;
+}
+
+.timeline-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.timeline-item:hover .timeline-image img {
+  transform: scale(1.06);
+}
+
+.timeline-image-overlay {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(10,10,10,0.6), transparent);
+  pointer-events: none;
+}
+
+/* Content side */
+.timeline-content {
+  padding: var(--space-xl) 0;
+}
+
+.timeline-content h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-xs);
+  line-height: 1.3;
+}
+
+.timeline-content h4 {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  font-weight: 400;
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.05em;
+}
+
+.timeline-content p {
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+  line-height: 1.8;
+}
+
+/* Zigzag: even items swap columns */
+.timeline-item:nth-child(even) .timeline-image {
+  order: 2;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  order: 1;
+  text-align: right;
+}
+
+/* Hover line glow */
+.timeline-item:hover::before {
+  box-shadow: 0 0 0 4px var(--color-dark), 0 0 0 5px rgba(198,167,105,0.5), 0 0 30px rgba(198,167,105,0.4);
+  transition: box-shadow 0.4s ease;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .award-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .award-hero-image {
+    aspect-ratio: 16/9;
+  }
+
+  .award-hero-content {
+    padding: var(--space-2xl);
+  }
+
+  .timeline::before {
+    left: 24px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    padding-left: 60px;
+    gap: var(--space-lg);
+  }
+
+  .timeline-item::before {
+    left: 24px;
+    top: 24px;
+    transform: translate(-50%, 0);
+  }
+
+  .timeline-item::after {
+    left: 24px;
+    top: -8px;
+    transform: translate(-50%, 0);
+  }
+
+  .timeline-item:nth-child(even) .timeline-image { order: 0; }
+  .timeline-item:nth-child(even) .timeline-content { order: 0; text-align: left; }
+}
+
+@media (max-width: 768px) {
+  .award-hero-content {
+    padding: var(--space-xl);
+  }
+
+  .award-hero-year {
+    font-size: 3rem;
+  }
+}
