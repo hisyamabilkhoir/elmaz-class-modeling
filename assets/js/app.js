@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initCustomCursor();
   initPageTransitions();
+  initAboutTabs();
 });
 
 /* === PRELOADER === */
@@ -83,14 +84,31 @@ function initNavbar() {
 
 /* === SMOOTH SCROLL === */
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+  document.querySelectorAll('a').forEach(anchor => {
+    const href = anchor.getAttribute('href');
+    if (!href) return;
+
+    // Check if it targets an anchor on the same page
+    const linkPath = anchor.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+    const currentPath = window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+
+    if (linkPath === currentPath && anchor.hash) {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        let targetId = anchor.hash;
+        if (targetId === '#about-founder') {
+          targetId = '#about';
+        }
+        
+        const target = document.querySelector(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Update URL hash without reload
+          history.pushState(null, null, anchor.hash);
+        }
+      });
+    }
   });
 }
 
@@ -141,6 +159,11 @@ function initPageTransitions() {
   document.querySelectorAll('a').forEach(link => {
     const href = link.getAttribute('href');
     if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('wa.me')) return;
+
+    // Check if it's the same page navigation with a hash
+    const linkPath = link.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+    const currentPath = window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+    if (linkPath === currentPath && link.hash) return;
 
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -196,4 +219,67 @@ function initScrollToTop() {
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+}
+
+/* === ABOUT TABS === */
+function initAboutTabs() {
+  const tabBtns = document.querySelectorAll('.about-tab-btn');
+  const tabContents = document.querySelectorAll('.about-tab-content');
+  if (tabBtns.length === 0) return;
+
+  function switchTab(tabId) {
+    tabBtns.forEach(btn => {
+      if (btn.getAttribute('data-tab') === tabId) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    tabContents.forEach(content => {
+      if (content.getAttribute('id') === `tab-${tabId}`) {
+        content.classList.add('active');
+      } else {
+        content.classList.remove('active');
+      }
+    });
+
+    // Switch tab images
+    const aboutImgs = document.querySelectorAll('.about-image-tab');
+    aboutImgs.forEach(img => {
+      if (img.getAttribute('id') === `about-img-${tabId}`) {
+        img.classList.add('active');
+      } else {
+        img.classList.remove('active');
+      }
+    });
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchTab(btn.getAttribute('data-tab'));
+    });
+  });
+
+  // Handle dropdown links / tab triggers
+  document.querySelectorAll('[data-tab-trigger]').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      const tabId = trigger.getAttribute('data-tab-trigger');
+      switchTab(tabId);
+    });
+  });
+
+  // Check URL hash on page load
+  const hash = window.location.hash;
+  if (hash === '#about-founder') {
+    switchTab('founder');
+    const target = document.querySelector('#about');
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 600); // Wait for preloader to slide out
+    }
+  } else if (hash === '#about') {
+    switchTab('elmaz');
+  }
 }

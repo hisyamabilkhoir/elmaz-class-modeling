@@ -174,9 +174,20 @@
   transition: all var(--transition-base);
 }
 
+.curriculum-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--color-accent);
+  transition: all var(--transition-base);
+}
+
 .curriculum-card:hover .curriculum-icon {
   background: rgba(198, 167, 105, 0.2);
   transform: scale(1.1);
+}
+
+.curriculum-card:hover .curriculum-icon svg {
+  stroke: var(--color-accent-light);
 }
 
 .curriculum-card h3 {

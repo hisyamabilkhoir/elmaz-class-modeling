@@ -77,7 +77,7 @@
   position: relative;
   z-index: 3;
   text-align: center;
-  max-width: 800px;
+  max-width: 1200px;
   padding: 0 var(--space-lg);
 }
 
@@ -94,8 +94,8 @@
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: var(--text-hero);
-  line-height: 1.05;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.15;
   margin-bottom: var(--space-lg);
   opacity: 0;
   animation: slideInUp 1s var(--ease-out) 2s forwards, textShimmer 4s ease-in-out 3s infinite;
@@ -114,6 +114,9 @@
   margin-bottom: var(--space-xl);
   opacity: 0;
   animation: slideInUp 1s var(--ease-out) 2.3s forwards;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-cta {
@@ -289,7 +292,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-3xl);
-  align-items: center;
+  align-items: start;
 }
 
 .brand-image {
@@ -299,10 +302,21 @@
   aspect-ratio: 3/4;
 }
 
-.brand-image img {
+.about-image-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: 1;
+}
+
+.about-image-tab.active {
+  opacity: 1;
+  z-index: 2;
 }
 
 .brand-image-frame {
@@ -315,6 +329,7 @@
   opacity: 0.3;
   border-radius: var(--border-radius);
   pointer-events: none;
+  z-index: 3;
 }
 
 .brand-content .section-label {
@@ -399,5 +414,330 @@
 
   .brand-stats {
     gap: var(--space-xl);
+  }
+}
+
+/* === VISION & MISSION === */
+.vision-mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  margin-top: var(--space-3xl);
+  width: 100%;
+}
+
+.vision-card,
+.mission-card {
+  background: var(--color-dark-soft);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.vision-card::before,
+.mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+  opacity: 0.8;
+}
+
+.vision-card:hover,
+.mission-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(198, 167, 105, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.vision-icon,
+.mission-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(198, 167, 105, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.vision-icon svg,
+.mission-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.vision-card h3,
+.mission-card h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.05em;
+}
+
+.vision-card p {
+  color: var(--color-gray-light);
+  line-height: 1.8;
+}
+
+.mission-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.mission-card li {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.mission-num {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.mission-card li p {
+  margin-bottom: 0;
+  font-size: var(--text-sm);
+  color: var(--color-gray-light);
+}
+
+@media (max-width: 768px) {
+  .vision-mission-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+}
+
+/* === COACHES SECTION === */
+.coaches-section {
+  background-color: var(--color-dark-medium);
+}
+
+.coaches-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.coach-card {
+  background: var(--color-dark-soft);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl) var(--space-lg);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.coach-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+  opacity: 0.8;
+}
+
+.coach-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(198, 167, 105, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.coach-avatar-wrapper {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+  padding: 3px;
+  margin-bottom: var(--space-md);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.coach-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-dark-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-accent);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.coach-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.coach-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  color: var(--color-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.coach-role {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.coach-divider {
+  width: 40px;
+  height: 1px;
+  background: rgba(198, 167, 105, 0.15);
+  margin: 0 auto var(--space-md) auto;
+}
+
+.coach-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  text-align: left;
+}
+
+.coach-details li {
+  font-size: 0.8rem;
+  color: var(--color-gray-light);
+  line-height: 1.5;
+  position: relative;
+  padding-left: var(--space-md);
+}
+
+.coach-details li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .coaches-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .coaches-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .coach-card {
+    padding: var(--space-lg) var(--space-md);
+  }
+}
+
+/* === ABOUT TABS === */
+.about-tabs-nav {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: var(--space-xs);
+}
+
+.about-tab-btn {
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gray);
+  padding: var(--space-xs) 0;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.about-tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--transition-base);
+}
+
+.about-tab-btn:hover {
+  color: var(--color-accent-light);
+}
+
+.about-tab-btn.active {
+  color: var(--color-accent);
+}
+
+.about-tab-btn.active::after {
+  width: 100%;
+}
+
+.about-tab-content {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.about-tab-content.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: tabFadeIn 0.5s var(--ease-out) forwards;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
