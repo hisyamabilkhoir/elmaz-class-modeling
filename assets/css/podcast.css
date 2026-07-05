@@ -42,6 +42,10 @@
   fill: var(--color-accent);
 }
 
+.podcast-channel-badge svg polygon {
+  fill: #141414;
+}
+
 /* Episodes Grid */
 .podcast-grid {
   display: grid;

@@ -62,9 +62,18 @@ function initNavbar() {
       document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     });
 
-    // Close on link click
-    menu.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
+    // Close on link click, except for dropdown parent trigger on mobile
+    menu.querySelectorAll('.nav-link, .dropdown-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const parentDropdown = link.closest('.nav-item-dropdown');
+        // If it's a dropdown trigger link on mobile
+        if (parentDropdown && link.classList.contains('nav-link')) {
+          e.preventDefault();
+          parentDropdown.classList.toggle('active');
+          return;
+        }
+
+        // For normal links or dropdown sub-links, close the menu
         toggle.classList.remove('active');
         menu.classList.remove('open');
         document.body.style.overflow = '';

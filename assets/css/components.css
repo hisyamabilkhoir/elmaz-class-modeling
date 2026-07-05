@@ -101,20 +101,37 @@
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   color: var(--color-primary);
   letter-spacing: 0.1em;
   font-weight: 600;
   transition: var(--transition-base);
+  text-decoration: none;
 }
 
 .nav-logo span {
   color: var(--color-accent);
 }
 
+.nav-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--color-accent);
+  transition: transform var(--transition-base);
+}
+
 .nav-logo:hover {
   color: var(--color-accent);
+}
+
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .nav-menu {
@@ -169,7 +186,8 @@
   vertical-align: middle;
 }
 
-.nav-item-dropdown:hover .dropdown-icon {
+.nav-item-dropdown:hover .dropdown-icon,
+.nav-item-dropdown.active .dropdown-icon {
   transform: rotate(180deg);
 }
 
@@ -233,6 +251,10 @@
   .nav-item-dropdown.active .dropdown-menu,
   .nav-item-dropdown:hover .dropdown-menu {
     max-height: 200px;
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
   }
   
   .dropdown-link {
@@ -511,6 +533,44 @@
 
 .footer-bottom p span {
   color: var(--color-accent);
+}
+
+.footer-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact-list li {
+  margin-bottom: var(--space-sm);
+}
+
+.footer-contact-list a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+  transition: all var(--transition-fast);
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.footer-contact-list a:hover {
+  color: var(--color-accent);
+}
+
+.footer-contact-list .contact-icon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-accent);
+  fill: none;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.footer-contact-list a:hover .contact-icon {
+  transform: scale(1.15);
 }
 
 /* === WHATSAPP FLOAT === */
