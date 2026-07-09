@@ -10,6 +10,7 @@ function initGallery() {
   const items = Array.from(document.querySelectorAll('.masonry-item'));
   const filterButtons = document.querySelectorAll('.filter-btn');
   const paginationContainer = document.getElementById('pagination');
+  const galleryInfo = document.getElementById('galleryInfo');
   
   if (items.length === 0) return;
 
@@ -25,7 +26,21 @@ function initGallery() {
     return items.filter(item => item.dataset.category === currentFilter);
   }
 
-  // 2. Render items on the current page
+  // 2. Update status counter info
+  function updateGalleryInfo(totalCount) {
+    if (!galleryInfo) return;
+    if (totalCount === 0) {
+      galleryInfo.textContent = 'Tidak ada foto untuk kategori ini';
+      return;
+    }
+
+    const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+    const endItem = Math.min(currentPage * ITEMS_PER_PAGE, totalCount);
+
+    galleryInfo.textContent = `Menampilkan ${startItem} - ${endItem} dari ${totalCount} foto`;
+  }
+
+  // 3. Render items on the current page
   function renderPage() {
     const filteredItems = getFilteredItems();
     const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
@@ -59,6 +74,9 @@ function initGallery() {
 
     // Render pagination controls
     renderPaginationControls(filteredItems.length, totalPages);
+
+    // Update gallery load info
+    updateGalleryInfo(filteredItems.length);
   }
 
   // 3. Render pagination buttons

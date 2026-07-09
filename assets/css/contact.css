@@ -96,4 +96,5 @@
 
 @media (max-width: 768px) {
   .contact-grid { grid-template-columns: 1fr; }
+  .contact-form { padding: var(--space-xl); }
 }

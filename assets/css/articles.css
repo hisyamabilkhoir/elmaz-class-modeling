@@ -89,4 +89,5 @@
   .articles-grid { grid-template-columns: 1fr; }
   .article-featured { grid-template-columns: 1fr; }
   .article-featured .article-card-image { min-height: 250px; }
+  .article-featured .article-card-content { padding: var(--space-xl); }
 }
