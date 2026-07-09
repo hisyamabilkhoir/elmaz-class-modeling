@@ -129,3 +129,53 @@
   .masonry-item { aspect-ratio: 4/5 !important; }
   .filter-btn { padding: 8px 18px; font-size: 0.65rem; }
 }
+
+/* === PAGINATION === */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-gray);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.pagination-btn:hover {
+  background: rgba(198, 167, 105, 0.1);
+  border-color: rgba(198, 167, 105, 0.3);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.pagination-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-dark);
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(198, 167, 105, 0.2);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
